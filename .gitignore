@@ -1,0 +1,25 @@
+# Vagrant local setting
+.vagrant/
+# PhpStorm Settings
+.idea/
+# Eclipse Settings
+.project
+# Netbeans Settings
+nbproject/
+# default vagrant web directory
+html/
+# puphpet custom config
+puphpet/
+# composer vendor files
+sources/vendor/
+# locale phpunit config
+sources/phpunit.xml
+# code-coverage output
+coverage/
+Vagrantfile
+*.iml
+pimple.json
+*.db
+*.log
+*.sqlite
+db/
