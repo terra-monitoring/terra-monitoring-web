@@ -51,6 +51,21 @@ li a:hover {
     margin-right: 3em;
 }
 
+#left_col {
+    float:left;
+    width:30%;
+}
+
+#right_col {
+    float:right;
+    width:70%;
+}
+
+
+
+
+
+
 
 
 

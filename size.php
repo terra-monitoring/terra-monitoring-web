@@ -5,7 +5,6 @@
     <title>Terrarien Überwachung</title>
 
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/toggleButton.css">
 
     <!--google charts -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -64,20 +63,20 @@ $terra = NULL;
         <tr>
             <td style="width: 50px">Datum:</td>
             <td>
-                <input type="date" name="date" style="width: 130px">
+                <input type="date" name="date" style="width: 130px" required>
             </td>
         </tr>
         <tr>
             <td>Gewicht:</td>
             <td>
-                <input type="number" min="1" max="100" step="0.1" name="weight" style="width: 130px">
+                <input type="number" min="1" max="100" step="0.1" name="weight" style="width: 130px" required>
             </td>
             <td>g</td>
         </tr>
         <tr>
             <td>Länge:</td>
             <td>
-                <input type="number" min="1" max="100" step="0.1" name="length" style="width: 130px">
+                <input type="number" min="1" max="100" step="0.1" name="length" style="width: 130px" required>
             </td>
             <td>cm</td>
         </tr>

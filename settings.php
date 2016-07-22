@@ -165,10 +165,10 @@ $terra = NULL;
                 </ul>
             </td>
         </tr>
-        <tr>
+        <tr id="manuel">
             <td>Lüfter Manuell Schalten:</td>
             <td>
-                <ul class='tg-list' id="manuel">
+                <ul class='tg-list' >
                     <input class='tgl tgl-light' name="status" id='tb2' type='checkbox' <?php echo $status_check; ?>>
                     <label class='tgl-btn' for='tb2'></label>
                 </ul>
@@ -184,7 +184,7 @@ $terra = NULL;
         <label for="passwd">Passwort:</label>
         <input type="password" id="passwd" name="password" size="14" maxlength="40" required>
     <p>
-       <span style="color: red; "><?php echo $error_mes; ?></span>
+        <span style="color: red; "><?php echo $error_mes; ?></span>
     <p>
         <button type="submit">Ändern</button>
 </form>
