@@ -39,13 +39,28 @@ if ($_POST['submit'] == 'true'){
 //disconnect database
 $terra = NULL;
 ?>
-<h3>Login:</h3>
-<form action="login.php" method="post">
-    <input type="password" name="password" size="15" maxlength="40" required>
-    <p></p>
-    <button type="submit" name="submit" value="true">Login</button>
-    <p></p>
-    <span style="color: red; "><?php echo $error_mes; ?></span>
-</form>
+<div class="col-md-12">
+    <h3>Login:</h3>
+    <form class="form-horizontal" action="login.php" method="post">
+
+        <div class="form-group optional">
+            <label class="col-sm-1 control-label" for="password">Passwort:</label>
+            <div class="col-sm-2">
+                <input class="form-control" id="password" type="password" name="password" maxlength="40" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-1 control-label" for="submit"></label>
+            <div class="col-sm-2">
+                <button class="btn btn-default" type="submit" id="submit" name="submit" value="true">Login</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <span style="color: red; "><?php echo $error_mes; ?></span>
+        </div>
+    </form>
+</div>
 </body>
 </html>

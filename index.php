@@ -35,7 +35,9 @@ $formatted_time = date("d.m.Y H:i:s", strtotime($current_time));
 //disconnect database
 $terra = NULL;
 ?>
-    <h3>Aktuell (<?php echo $formatted_time; ?>)</h3>
+<div class="col-md-12">
+    <h3>Letzte Messung:</h3>
+    <h4>(<?php echo $formatted_time; ?>)</h4>
     <table>
         <tbody>
         <tr>
@@ -61,5 +63,6 @@ $terra = NULL;
     <div id="linechart_material_temp"></div>
     <h3>Luftfeuchtigkeit Heute:</h3>
     <div id="linechart_material_hum"></div>
+</div>
 </body>
 </html>

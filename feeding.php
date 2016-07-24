@@ -7,6 +7,8 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/toggleButton.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
@@ -149,69 +151,77 @@ if ($_SESSION['login'] == 'true' && $_POST['submit'] == 'true') {
 //disconnect database
 $terra = NULL;
 ?>
-<div id="left_col">
+<div class="col-md-4" >
     <h3>Neue Fütterung:</h3>
     <h4>(Letzter Eintrag am <?php echo $last_date;?>):</h4>
-    <form action="feeding.php" method="post">
-        <table>
-            <tbody>
-            <tr>
-                <td style="width: 50px">Datum:</td>
-                <td>
-                    <input type="date" name="date" style="width: 130px">
-                </td>
-            </tr>
-            <tr>
-                <td>Fastentag?</td>
-                <td>
-                    <input id='fastentag' type="checkbox" name="fastentag" value="true">
-                </td>
-            </tr>
-            <tr class="optional">
-                <td>Futter:</td>
-                <td>
-                    <select name="futter" size="1" style="width: 130px">
-                        <?php echo $FutterDropDown; ?>
-                    </select>
+        <form class="form-horizontal" action="feeding.php" method="post">
 
-                </td>
-            </tr>
-            <tr class="optional">
-                <td>Menge:</td>
-                <td>
-                    <input type="number" min="1" max="100" step="1" name="menge" style="width: 130px">
-                </td>
-            </tr>
-            <tr class="optional">
-                <td>Vitamine?</td>
-                <td>
-                    <input type="checkbox" name="vitamine" value="true">
-                </td>
-            </tr>
-            <tr class="optional">
-                <td>Calcium?</td>
-                <td>
-                    <input type="checkbox" name="calcium" value="true">
-                </td>
-            </tr>
-            <tr>
-                <td>Bemerkung:</td>
-                <td>
-                    <textarea name="bemerkung" cols="20" rows="3" ></textarea>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <p>
-            <button type="submit" name="submit" value="true">Hinzufügen</button>
-        <p>
-            <span style="color: red; "><?php echo $error_mes; ?></span>
-            <span style="color: green; "><?php echo $success_mes; ?></span>
-    </form>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="date" >Datum:</label>
+                <div class="col-sm-6">
+                    <input class="form-control" id="date" type="date" name="date" >
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="fastentag">Fastentag?</label>
+                <div class="col-sm-6">
+                    <input class="checkbox" id='fastentag' type="checkbox" name="fastentag" value="true">
+                </div>
+            </div>
+
+            <div class="form-group optional">
+                <label class="col-sm-3 control-label" for="futter">Futter:</label>
+                <div class="col-sm-6">
+                    <select class="form-control" id="futter" name="futter" size="1" ><?php echo $FutterDropDown; ?></select>
+                </div>
+            </div>
+
+            <div class="form-group optional">
+                <label class="col-sm-3 control-label" for="menge">Menge:</label>
+                <div class="col-sm-6">
+                    <input class="form-control" id="menge" type="number" min="1" max="100" step="1" name="menge" >
+                </div>
+            </div>
+
+            <div class="form-group optional">
+                <label class="col-sm-3 control-label" for="vitamine">Vitamine?</label>
+                <div class="col-sm-6">
+                    <input class="checkbox" type="checkbox" id="vitamine" name="vitamine" value="true">
+                </div>
+            </div>
+
+            <div class="form-group optional">
+                <label class="col-sm-3 control-label" for="calcium">Calcium:</label>
+                <div class="col-sm-6">
+                    <input class="checkbox" type="checkbox" id="calcium" name="calcium" value="true">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="bemerkung">Bemerkung:</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" id="bemerkung" name="bemerkung" cols="23" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="submit"></label>
+                <div class="col-sm-6">
+                    <button class="btn btn-default" id="submit" type="submit" name="submit" value="true">Hinzufügen</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <span style="color: red; "><?php echo $error_mes; ?></span>
+                <span style="color: green; "><?php echo $success_mes; ?></span>
+            </div>
+
+        </form>
 </div>
-<div id="right_col">
+<div class="col-md-6">
     <h3>Fütterung:</h3>
-    <table>
+    <table class="table-striped table-condensed table-hover">
         <thead>
         <tr>
             <th>Datum</th>

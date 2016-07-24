@@ -42,11 +42,11 @@ $_SESSION['print_day'] = date('Y-m-d', strtotime("$counter days"));
 
 
 ?>
-
-    <form action="dayView.php" method="post" style="margin: 1em">
-        <button type="submit" name="back" value="true">zurück</button>
-        <button type="submit" name="forward" value="true">vor</button>
-        <button type="submit" name="today" value="true">heute</button>
+<div class="col-md-12">
+    <form class="form-inline" action="dayView.php" method="post" style="margin: 1em">
+        <button class="btn btn-default" type="submit" name="back" value="true">zurück</button>
+        <button class="btn btn-default" type="submit" name="forward" value="true">vor</button>
+        <button class="btn btn-default" type="submit" name="today" value="true">heute</button>
     </form>
 
 
@@ -55,5 +55,6 @@ $_SESSION['print_day'] = date('Y-m-d', strtotime("$counter days"));
     <div id="linechart_material_temp"></div>
     <h3>Luftfeuchtigkeit:</h3>
     <div id="linechart_material_hum"></div>
+</div>
 </body>
 </html>

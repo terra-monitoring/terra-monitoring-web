@@ -20,7 +20,7 @@ SESSION_START();
 include "menu/nav.html"; 
 
 ?>
-
+<div class="col-md-12">
     <h3>Gesamt:</h3>
     <h4>Temperatur Oben:</h4>
     <div id="linechart_material_s1" class="linechart"></div>
@@ -30,6 +30,6 @@ include "menu/nav.html";
     <div id="linechart_material_s3" class="linechart"></div>
     <h4>Luftfeuchtigkeit:</h4>
     <div id="linechart_material_s4" class="linechart"></div>
-
+</div>
 </body>
 </html>

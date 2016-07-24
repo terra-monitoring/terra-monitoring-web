@@ -120,10 +120,10 @@ foreach ($current_luefter as $row) {
     }
 
     if ($row['status'] == 'true') {
-        $status = 'an';
+        $status = utf8_encode("&#10004");
         $status_check = 'checked';
     } else {
-        $status = 'aus';
+        $status = utf8_encode("&#10006");
         $status_check = 'unchecked';;
     }
 }
@@ -185,118 +185,139 @@ if($_SESSION['login'] == 'true' && $_POST['submitAddFood'] == 'true'){
 //disconnect database
 $terra = NULL;
 ?>
-<div id="left_col">
-    <h3>Settings:</h3>
-    <form action="settings.php" method="post">
-        <table>
-            <tbody>
-            <tr>
-                <td style="width: 200px">Aktueller Sonnenaufgang:</td>
-                <td>
-                    <input type="time" name="sunrise" value="<?php echo $sunrise; ?>">
-                </td>
-                <td>Uhr</td>
-            </tr>
-            <tr>
-                <td>Aktueller Sonnenuntergang:</td>
-                <td>
-                    <input type="time" name="sunset" value="<?php echo $sunset; ?>">
-                </td>
-                <td>Uhr</td>
-            </tr>
-            <tr>
-                <td>Lüfter einschalten bei über:</td>
-                <td>
-                    <input id="groesse" type="number" name="max" min="20" max="50" step="0.1" value="<?php echo $max; ?>">
-                </td>
-                <td>°C</td>
-            </tr>
-            <tr>
-                <td>Lüfter ausschalten bei unter:</td>
-                <td>
-                    <input id="groesse" type="number" name="min" min="20" max="50" step="0.1" value="<?php echo $min; ?>">
-                </td>
-                <td>°C</td>
-            </tr>
-            <tr>
-                <td>Lüfter Automod:</td>
-                <td>
-                    <ul class='tg-list'>
-                        <input class='tgl tgl-light' id='tb1' name="auto_mod" type='checkbox' <?php echo $auto_mod_check; ?>>
-                        <label class='tgl-btn' for='tb1'></label>
-                    </ul>
-                </td>
-            </tr>
-            <tr id="manuel">
-                <td>Lüfter Manuell Schalten:</td>
-                <td>
-                    <ul class='tg-list' >
-                        <input class='tgl tgl-light' name="status" id='tb2' type='checkbox' <?php echo $status_check; ?>>
-                        <label class='tgl-btn' for='tb2'></label>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td>Lüfter Status:</td>
-                <td><?php echo $status; ?></td>
-            </tr>
-            </tbody>
-        </table>
-        <p>
-            <button type="submit" name="submit" value="true">Ändern</button>
-        <p>
+<div class="col-md-4 form-group">
+    <h3>Einstellungen:</h3>
+    <form class="form-horizontal" action="settings.php" method="post">
+
+        <div class="form-group">
+            <label class="col-sm-7 control-label" for="time1" >Aktueller Sonnenaufgang:</label>
+            <div class="col-sm-5">
+                <input class="form-control" id="time1" type="time" name="sunrise" value="<?php echo $sunrise; ?>">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-7 control-label" for="time2" >Aktueller Sonnenuntergang:</label>
+            <div class="col-sm-5">
+                <input class="form-control" id="time2" type="time" name="sunset" value="<?php echo $sunset; ?>">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-7 control-label" for="groesse1" >Lüfter einschalten bei über:</label>
+            <div class="col-sm-5">
+                <input class="form-control" id="groesse groesse1" type="number" name="max" min="20" max="50" step="0.1" value="<?php echo $max; ?>">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-7 control-label" for="groesse2" >Lüfter ausschalten bei unter:</label>
+            <div class="col-sm-5">
+                <input class="form-control" id="groesse groesse2" type="number" name="min" min="20" max="50" step="0.1" value="<?php echo $min; ?>">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <ul class='tg-list'>
+                <label class="col-sm-7 control-label tgl-btn" for="tb1" >Lüfter Automod:</label>
+                <div class="col-sm-5">
+                    <input class='tgl tgl-light' id='tb1' name="auto_mod" type='checkbox' <?php echo $auto_mod_check; ?>>
+                    <label class='tgl-btn' for='tb1'></label>
+                </div>
+            </ul>
+        </div>
+
+        <div class="form-group" id="manuel">
+            <ul class='tg-list'>
+                <label class="col-sm-7 control-label tgl-btn" for="tb2" >Lüfter Manuell Schalten:</label>
+                <div class="col-sm-5">
+                    <input class='tgl tgl-light' id='tb2' name="status" type='checkbox' <?php echo $status_check; ?>>
+                    <label class='tgl-btn' for='tb2'></label>
+                </div>
+            </ul>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-7 control-label" >Lüfter Status:</label>
+            <div class="col-sm-5">
+                <?php echo $status; ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-7 control-label" for="submit"></label>
+            <div class="col-sm-5">
+                <button class="btn btn-default" id="submit" type="submit" name="submit" value="true">Ändern</button>
+            </div>
+        </div>
+
+        <div class="form-group">
             <span style="color: red; "><?php echo $error_mes1; ?></span>
             <span style="color: green; "><?php echo $success_mes1; ?></span>
+        </div>
+
     </form>
 </div>
-<div id="right_col">
+<div class="col-md-6">
     <h3>Passwort ändern:</h3>
-    <form action="settings.php" method="post">
-        <table>
-            <tbody>
-            <tr>
-                <td style="width: 180px">Aktuelles Passwort:</td>
-                <td>
-                    <input type="password" name="passwordAlt" size="15" maxlength="40" required>
-                </td>
-            </tr>
-            <tr>
-                <td style="width: 180px">Neues Password:</td>
-                <td>
-                    <input type="password" name="passwordNeu1" size="15" maxlength="40" required>
-                </td>
-            </tr>
-            <tr>
-                <td style="width: 180px">Neues Passwort nochmal:</td>
-                <td>
-                    <input type="password" name="passwordNeu2" size="15" maxlength="40" required>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <p>
-            <button type="submit" name="submitChangePassword" value="true">Ändern und neu einloggen</button>
-        <p>
+    <form class="form-horizontal" action="settings.php" method="post">
+
+        <div class="form-group optional">
+            <label class="col-sm-4 control-label" for="passwordAlt">Aktuelles Passwort:</label>
+            <div class="col-sm-5">
+                <input class="form-control" id="passwordAlt" type="password" name="passwordAlt" size="15" maxlength="40" required>
+            </div>
+        </div>
+
+        <div class="form-group optional">
+            <label class="col-sm-4 control-label" for="passwordNeu1">Neues Passwort:</label>
+            <div class="col-sm-5">
+                <input class="form-control" id="passwordNeu1" type="password" name="passwordNeu1" size="15" maxlength="40" required>
+            </div>
+        </div>
+
+        <div class="form-group optional">
+            <label class="col-sm-4 control-label" for="passwordNeu2">Neues Passwort nochmal:</label>
+            <div class="col-sm-5">
+                <input class="form-control" id="passwordNeu2" type="password" name="passwordNeu2" size="15" maxlength="40" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label" for="submitChangePassword"></label>
+            <div class="col-sm-5">
+                <button class="btn btn-default" id="submitChangePassword" type="submit" name="submitChangePassword" value="true">Ändern und neu einloggen</button>
+            </div>
+        </div>
+
+        <div class="form-group">
             <span style="color: red; "><?php echo $error_mes2; ?></span>
+        </div>
+
     </form>
 
     <h3 style="margin-top: 2em">Neues Futtertier hinzufügen:</h3>
-    <form action="settings.php" method="post">
-        <table>
-            <tbody>
-            <tr>
-                <td style="width: 60px">Name:</td>
-                <td>
-                    <input type="text" name="foodName" size="20" maxlength="40" required>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <p>
-            <button type="submit" name="submitAddFood" value="true">Hinzufügen</button>
-        <p>
+    <form class="form-horizontal" action="settings.php" method="post">
+
+        <div class="form-group optional">
+            <label class="col-sm-4 control-label" for="foodName">Name:</label>
+            <div class="col-sm-5">
+                <input class="form-control" id="foodName" type="text" name="foodName" maxlength="40" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label" for="submitAddFood"></label>
+            <div class="col-sm-5">
+                <button class="btn btn-default" id="submitAddFood" type="submit" name="submitAddFood" value="true">Hinzufügen</button>
+            </div>
+        </div>
+
+        <div class="form-group">
             <span style="color: red; "><?php echo $error_mes3; ?></span>
             <span style="color: green; "><?php echo $success_mes3; ?></span>
+        </div>
+
     </form>
 
 </div>

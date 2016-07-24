@@ -17,6 +17,8 @@ $_SESSION['logout'] = "true";
 
 include "menu/nav.html";
 ?>
-<h3>Erfolgreich Ausgeloggt!</h3>
+<div class="col-md-12">
+    <h3>Erfolgreich Ausgeloggt!</h3>
+</div>
 </body>
 </html>

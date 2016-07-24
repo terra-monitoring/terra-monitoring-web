@@ -8,8 +8,6 @@ if (defined("setFan")){
     $terra_db = new PDO('sqlite:../db/terra.sqlite');
 }
 
-
-
 // get the fan settings
 $luefter_table = $terra_db->query("select * from luefter");
 foreach ($luefter_table as $row) {

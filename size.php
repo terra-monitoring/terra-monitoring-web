@@ -56,40 +56,49 @@ if ($_SESSION['login'] == 'true' && $_POST['submit'] == 'true') {
 //disconnect database
 $terra = NULL;
 ?>
-<h3>Neue Messwerte Anlegen:</h3>
-<h4>(Letzter Eintrag am <?php echo $last_date;?>):</h4>
-<form action="size.php" method="post">
-    <table>
-        <tbody>
-        <tr>
-            <td style="width: 50px">Datum:</td>
-            <td>
-                <input type="date" name="date" style="width: 130px" required>
-            </td>
-        </tr>
-        <tr>
-            <td>Gewicht:</td>
-            <td>
-                <input type="number" min="1" max="100" step="0.1" name="weight" style="width: 130px" required>
-            </td>
-            <td>g</td>
-        </tr>
-        <tr>
-            <td>Länge:</td>
-            <td>
-                <input type="number" min="1" max="100" step="0.1" name="length" style="width: 130px" required>
-            </td>
-            <td>cm</td>
-        </tr>
-        </tbody>
-    </table>
-    <p>
-        <span style="color: red; "><?php echo $error_mes; ?></span>
-        <span style="color: green; "><?php echo $success_mes; ?></span>
-    <p>
-        <button type="submit" name="submit" value="true">Hinzufügen</button>
-</form>
-<h3>Gewicht und Länge:</h3>
-<div id="linechart_material_size"></div>
+<div class="col-md-12">
+    <h3>Neue Messwerte Anlegen:</h3>
+    <h4>(Letzter Eintrag am <?php echo $last_date;?>):</h4>
+        <form class="form-horizontal" action="size.php" method="post">
+
+            <div class="form-group optional">
+                <label class="col-sm-1 control-label" for="date">Datum:</label>
+                <div class="col-sm-2">
+                    <input class="form-control" type="date" id="date" name="date" required>
+                </div>
+            </div>
+
+            <div class="form-group optional">
+                <label class="col-sm-1 control-label" for="weight">Gewicht:</label>
+                <div class="col-sm-2">
+                    <input class="form-control" type="number" id="weight" min="1" max="100" step="0.1" name="weight" placeholder="in g" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-1 control-label" for="lenght">Länge:</label>
+                <div class="col-sm-2">
+                    <input class="form-control" type="number" id="lenght" min="1" max="100" step="0.1" name="length" placeholder="in cm" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-1 control-label" for="submit"></label>
+                <div class="col-sm-2">
+                    <button class="btn btn-default" type="submit" id="submit" name="submit" value="true">Hinzufügen</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <span style="color: red; "><?php echo $error_mes; ?></span>
+                <span style="color: green; "><?php echo $success_mes; ?></span>
+            </div>
+
+        </form>
+</div>
+<div class="col-md-12">
+    <h3>Gewicht und Länge:</h3>
+    <div id="linechart_material_size"></div>
+</div>
 </body>
 </html>
