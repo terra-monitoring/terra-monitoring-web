@@ -26,6 +26,7 @@
 <body>
 
 <?php
+SESSION_START();
 include "menu/nav.html";
 // error message
 $error_mes = "";
@@ -44,29 +45,58 @@ foreach ($last_insert as $row) {
 
 
 // get Futter for DropDown
-$result = $einstein->query('SELECT name FROM food');
+$result = $einstein->query('SELECT name FROM food ORDER BY name COLLATE NOCASE');
 foreach ($result as $row) {
     $FutterDropDown .= "<option>" . $row['name'] . "</option>";
 }
 
 
 // get all feeds
-$resultFeed = $einstein->query('SELECT * FROM feed');
-foreach ($resultFeed as $row) {
+$resultFeed = $einstein->query('SELECT * FROM feed ORDER BY date DESC');
+foreach ($resultFeed as $rowFeed) {
+
+    $currentFoodID = $rowFeed['foodID'];
+    if($currentFoodID != 0) {
+        $resultFood = $einstein->query("SELECT name FROM food WHERE id = $currentFoodID");
+        foreach ($resultFood as $rowFood) {
+            $currentFood = $rowFood['name'];
+        }
+    } else {
+        $currentFood = "";
+    }
+
+    if($rowFeed['Vitamine'] == 'true'){
+        $currentVitamine = utf8_encode("&#10003");
+    }else{
+        $currentVitamine = "";
+    }
+
+    if($rowFeed['Calcium'] == 'true'){
+        $currentCalcium = utf8_encode("&#10003");
+    }else{
+        $currentCalcium = "";
+    }
+
+    if($rowFeed['Fastentag'] == 'true'){
+        $currentFastentag = utf8_encode("&#10003");
+    }else{
+        $currentFastentag = "";
+    }
+
     $Fütterungen .= "<tr>
-                        <td>" . date("d.m.Y", strtotime($row['date'])) . "</td>
-                        <td>" . $row['foodID'] . "</td>
-                        <td>" . $row['menge'] . "</td>
-                        <td>" . $row['Vitamine'] . "</td>
-                        <td>" . $row['Calcium'] . "</td>
-                        <td>" . $row['Fastentag'] . "</td>
-                        <td>" . $row['Bemerkungen'] . "</td>
+                        <td>" . date("d.m.Y", strtotime($rowFeed['date'])) . "</td>
+                        <td>" . $currentFood . "</td>
+                        <td>" . $rowFeed['menge'] . "</td>
+                        <td>" . $currentVitamine . "</td>
+                        <td>" . $currentCalcium . "</td>
+                        <td>" . $currentFastentag . "</td>
+                        <td>" . $rowFeed['Bemerkungen'] . "</td>
                     </tr>";
 }
 
 
 // after push "Hinzufügen" this if-query put the new data in database
-if ($_POST['password'] == 'terra5#') {
+if ($_SESSION['login'] == 'true' && $_POST['submit'] == 'true') {
     if ($_POST['fastentag'] == 'true'){
         $date = $_POST['date'];
         $bemerkung = $_POST['bemerkung'];
@@ -111,9 +141,9 @@ if ($_POST['password'] == 'terra5#') {
         $einstein->exec("INSERT INTO feed VALUES('$date', '$foodID', '$menge', '$vitamine', '$calcium', 'false', '$bemerkung')");
 
     }
-
-} elseif (!empty($_POST['password'])) {
-    $error_mes = "falsches Passwort!";
+    header('location: feeding.php');
+} elseif ($_POST['submit'] == 'true') {
+    $error_mes = "Bitte erst einloggen!";
 }
 
 //disconnect database
@@ -134,7 +164,7 @@ $terra = NULL;
             <tr>
                 <td>Fastentag?</td>
                 <td>
-                    <input id='fastentag' type="checkbox" name="fastentag">
+                    <input id='fastentag' type="checkbox" name="fastentag" value="true">
                 </td>
             </tr>
             <tr class="optional">
@@ -155,13 +185,13 @@ $terra = NULL;
             <tr class="optional">
                 <td>Vitamine?</td>
                 <td>
-                    <input type="checkbox" name="vitamine" >
+                    <input type="checkbox" name="vitamine" value="true">
                 </td>
             </tr>
             <tr class="optional">
                 <td>Calcium?</td>
                 <td>
-                    <input type="checkbox" name="calcium">
+                    <input type="checkbox" name="calcium" value="true">
                 </td>
             </tr>
             <tr>
@@ -173,13 +203,10 @@ $terra = NULL;
             </tbody>
         </table>
         <p>
-            <label for="passwd">Passwort:</label>
-            <input type="password" id="passwd" name="password" size="14" maxlength="40" required>
+            <button type="submit" name="submit" value="true">Hinzufügen</button>
         <p>
             <span style="color: red; "><?php echo $error_mes; ?></span>
             <span style="color: green; "><?php echo $success_mes; ?></span>
-        <p>
-            <button type="submit">Hinzufügen</button>
     </form>
 </div>
 <div id="right_col">

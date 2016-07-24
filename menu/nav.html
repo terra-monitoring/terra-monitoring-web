@@ -3,6 +3,19 @@
 <head>
     <link rel="stylesheet" href="css/style.css">
 </head>
+<?php
+SESSION_START();
+if($_SESSION['logout'] == 'true'){
+    $text = "Login";
+    $loginphp = "login.php";
+} elseif($_SESSION['login'] == 'true'){
+    $text = "Logout";
+    $loginphp = "logout.php";
+} else {
+    $text = "Login";
+    $loginphp = "login.php";
+}
+?>
 <body>
 
     <nav>
@@ -14,7 +27,8 @@
             <li><a href="overall.php">Gesamt</a>
             <li><a href="live_stream.php">Live Stream</a>
             <li><a href="settings.php">Einstellungen</a>
-            <li id="titel">Terrarien Überwachung</li>
+            <li><a href="<?php echo $loginphp; ?>" ><?php echo $text;?></a>
+            <li class="menuRight">Terrarien Überwachung</li>
         </ul>
     </nav>
 </body>

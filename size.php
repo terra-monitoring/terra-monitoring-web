@@ -14,6 +14,7 @@
 <body>
 
 <?php
+SESSION_START();
 include "menu/nav.html";
 // error message
 $error_mes = "";
@@ -30,7 +31,7 @@ foreach ($last_insert as $row) {
 }
 
 // after push "Hinzufügen" this if-query put the new data in database
-if ($_POST['password'] == 'terra5#') {
+if ($_SESSION['login'] == 'true' && $_POST['submit'] == 'true') {
     $date = $_POST['date'];
     $length = $_POST['length'];
     $weight = $_POST['weight'];
@@ -47,9 +48,9 @@ if ($_POST['password'] == 'terra5#') {
     } else {
         $error_mes = "Das Hinzufügen hat nicht funktioniert!";
     }
-
-} elseif (!empty($_POST['password'])) {
-    $error_mes = "falsches Passwort!";
+    header('location: size.php');
+} elseif ($_POST['submit'] == 'true') {
+    $error_mes = "Bitte erst einloggen!";
 }
 
 //disconnect database
@@ -83,13 +84,10 @@ $terra = NULL;
         </tbody>
     </table>
     <p>
-        <label for="passwd">Passwort:</label>
-        <input type="password" id="passwd" name="password" size="14" maxlength="40" required>
-    <p>
         <span style="color: red; "><?php echo $error_mes; ?></span>
         <span style="color: green; "><?php echo $success_mes; ?></span>
     <p>
-        <button type="submit">Hinzufügen</button>
+        <button type="submit" name="submit" value="true">Hinzufügen</button>
 </form>
 <h3>Gewicht und Länge:</h3>
 <div id="linechart_material_size"></div>

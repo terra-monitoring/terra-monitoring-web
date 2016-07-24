@@ -15,7 +15,11 @@
 </head>
 <body>
 
-    <?php include "menu/nav.html"; ?>
+<?php
+SESSION_START();
+include "menu/nav.html"; 
+
+?>
 
     <h3>Gesamt:</h3>
     <h4>Temperatur Oben:</h4>
