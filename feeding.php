@@ -192,7 +192,7 @@ $terra = NULL;
             </div>
 
             <div class="form-group optional">
-                <label class="col-sm-3 control-label" for="calcium">Calcium:</label>
+                <label class="col-sm-3 control-label" for="calcium">Calcium?</label>
                 <div class="col-sm-6">
                     <input class="checkbox" type="checkbox" id="calcium" name="calcium" value="true">
                 </div>
