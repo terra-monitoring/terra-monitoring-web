@@ -31,6 +31,23 @@ if($_POST['action'] == 'get'){
 
     print(json_encode($array1));
 } elseif ($_POST['action'] == "set") {
+    $imeiPhone = $_POST['imei'];
+
+    $login = $terra->query('SELECT * FROM login');
+    foreach ($login as $row) {
+        $algo = $row['salt'];
+        $imei = $row['IMEI'];
+    }
+
+
+    if ($imei != hash($algo, $imeiPhone)){
+        $message = "Dieses Mobil Phone ist nicht berechtigt!";
+        print(json_encode($message));
+        exit;
+    }
+    
+
+
 
     if ($_POST['page'] == "feed") {
         $dateUnformatted = $_POST['date'];
@@ -124,7 +141,7 @@ if($_POST['action'] == 'get'){
     } elseif ($_POST['page'] == "sun") {
         $sunrise = $_POST['sunrise'];
         $sunset = $_POST['sunset'];
-        
+
         if ($sunrise < $sunset){
             $terra->exec("UPDATE sun SET sunrise = '$sunrise'");
             $terra->exec("UPDATE sun SET sunset = '$sunset'");
@@ -138,14 +155,58 @@ if($_POST['action'] == 'get'){
                     $message = "Das Speichern hat nicht funktioniert!";
                 }
             }
-            
+
         } else {
             $message = "Sonnenaufgang muss vor dem Sonnenuntergang sein!";
         }
-        
-        
-        
 
+    } elseif ($_POST['page'] == "luefter"){
+        $autoMod = $_POST['automod'];
+        $manuel = $_POST['manuel'];
+        $max = $_POST['max'];
+        $min = $_POST['min'];
+
+        if($max > $min){
+            //set max and min
+            $terra->exec("UPDATE luefter SET max = '$max'");
+            $terra->exec("UPDATE luefter SET min = '$min'");
+
+
+            //set Lüfter
+            if ($autoMod == 'true' && $manuel == 'true'){
+                $message = "Error";
+            } else {
+                if($autoMod == 'true') {
+                    $terra->exec("UPDATE luefter SET auto_mod = 'true'");
+                }   else {
+                    $terra->exec("UPDATE luefter SET auto_mod = 'false'");
+                }
+
+                if($manuel == 'true') {
+                    $terra->exec("UPDATE luefter SET status = 'true'");
+                } else {
+                    $terra->exec("UPDATE luefter SET status = 'false'");
+                }
+            }
+
+
+
+            //check luefter
+            $check_sun = $terra->query('SELECT * FROM luefter');
+            foreach ($check_sun as $row) {
+                if ($max == $row['max'] && $min == $row['min'] && $autoMod == $row['auto_mod'] && $manuel == $row['status']){
+                    $message = "Das Speichern war erfolgreich.";
+                } else {
+                    $message = "Das Speichern hat nicht funktioniert!";
+                }
+            }
+
+        } else {
+            $message = "Der Obere Schaltgrenze muss höher sein als die Untere Schaltgrenze!";
+        }
+
+
+        
         
 
         
