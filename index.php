@@ -30,6 +30,7 @@ foreach ($current as $row) {
 }
 
 // change format from current time
+
 $formatted_time = date("d.m.Y H:i:s", strtotime($current_time));
 
 //disconnect database
